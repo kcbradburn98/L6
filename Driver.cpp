@@ -1,8 +1,20 @@
 #include "Driver.h"
 #include <iostream>
+#include <fstream>
+
 
 Driver::Driver(){
     m_heap = new Heap;
+    std::ifstream infile;
+    infile.open("data.txt");
+    int n;
+    while(!infile.eof()){
+        infile >> n;
+        std::cout << "inserting -> " << n << std::endl;
+        m_heap->insert(n);
+    }
+    infile.close();
+
 }
 
 

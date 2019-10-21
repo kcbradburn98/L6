@@ -11,7 +11,6 @@ bool Heap::insert(int num){
     if(m_size == 0){
         m_arr[0] = num;
         m_size++;
-        std::cout << "triggered 0\n";
         return true;
     }
     else{
@@ -19,7 +18,6 @@ bool Heap::insert(int num){
             if(m_arr[i] == -999){
                 m_arr[i] = num;
                 m_size++;
-                std::cout << "triggered 1\n";
                 upheap(i);
                 return true;
             }
