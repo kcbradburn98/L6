@@ -1,6 +1,7 @@
 #include "Driver.h"
 #include <iostream>
 #include <fstream>
+#include "Timer.h"
 
 
 Driver::Driver(){
@@ -48,22 +49,35 @@ void Driver::insert(){
     int n;
     std::cin >> n;
     if(m_heap->insert(n)){
-        std::cout << "INSERT SUCCESFUL\nCURRENTHEAP->[";
+        std::cout << "INSERT SUCCESFUL\nCURRENTHEAP-> ";
         m_heap->levelOrder();
-        std::cout << "]\n";
     }   
 }
 
 void Driver::remove(){
-
+    std::cout << "Please enter an integer to remove: ";
+    int n;
+    std::cin >> n;
+    if(m_heap->remove(n)){
+        std::cout << "REMOVE SUCCESFUL\nCURRENTHEAP-> ";
+        m_heap->levelOrder();
+    } 
 }
 
 void Driver::PQLowest(){
-
+    if(m_heap->getSize() != 0){
+        std::cout << "Lowest -> " << m_heap->PQLowest() << std::endl;
+        return;
+    }
+    std::cout << "Heap is empty\n";
 }
 
 void Driver::PQHighest(){
-
+    if(m_heap->getSize() != 0){
+        std::cout << "Highest -> " << m_heap->PQHighest() << std::endl;
+        return;
+    }
+    std::cout << "Heap is empty\n";
 }
 
 void Driver::levelOrder(){
@@ -71,7 +85,8 @@ void Driver::levelOrder(){
 }
 
 void Driver::timeLowest(){
-
+    Timer myTimer;
+    PQLowest();
 }
 
 void Driver::menu(){

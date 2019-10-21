@@ -18,7 +18,7 @@ bool Heap::insert(int num){
             if(m_arr[i] == -999){
                 m_arr[i] = num;
                 m_size++;
-                upheap(i);
+                heapify(i);
                 return true;
             }
         }
@@ -26,24 +26,37 @@ bool Heap::insert(int num){
     return false;
 }
 
-void Heap::remove(int num){
+bool Heap::remove(int num){
     int temp = m_arr[m_size];
     for(int i = 0; i < m_size; i++){
         if(m_arr[i] == num){
             m_arr[m_size] = -999;
             m_size--;
             m_arr[i] = temp;
-            upheap(i);
+            heapify(i);
+            return true;
         }
     }
+    return false;
 }
 
-void Heap::PQHighest(){
-
+int Heap::PQHighest(){
+    int max = 0;
+    int i = 0;
+    while(lchild(i) < m_arrayLength){
+        //finds the leftmost leaf and makes i the index of the leftmost child
+        i = lchild(i);
+    }
+    for(int j = i; j < m_arrayLength;j++){
+        if(max < m_arr[j]){
+            max = m_arr[j];
+        }
+    }
+    return max;
 }
 
-void Heap::PQLowest(){
-
+int Heap::PQLowest(){
+    return m_arr[0];
 }
 
 void Heap::levelOrder(){
@@ -55,13 +68,8 @@ void Heap::levelOrder(){
     std::cout << std::endl;
 }
 
-void Heap::timeLowest(){
-
-}
-
-
 // Helper functions for Heap class
-void Heap::upheap(int index){
+void Heap::heapify(int index){
     if(index == 0){
         return; 
     }
@@ -72,9 +80,7 @@ void Heap::upheap(int index){
             int temp = m_arr[pIndex];
             m_arr[pIndex] = m_arr[index];
             m_arr[index] = temp;
-            upheap(pIndex);
+            heapify(pIndex);
         }  
     }   
 }
-
-
