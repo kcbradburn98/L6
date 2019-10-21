@@ -1,4 +1,5 @@
 #pragma once
+#include "Heap.h"
 
 
 
@@ -14,6 +15,8 @@ class Driver{
         void levelOrder();
         void timeLowest();
         void menu();
+        void print();
     private:
+        Heap * m_heap;
 
 };

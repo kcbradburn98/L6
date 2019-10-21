@@ -2,8 +2,9 @@
 #include <iostream>
 
 Driver::Driver(){
-
+    m_heap = new Heap;
 }
+
 
 void Driver::run(){
     bool run = true;
@@ -31,7 +32,14 @@ void Driver::run(){
 }
 
 void Driver::insert(){
-
+    std::cout << "Please enter an integer to insert: ";
+    int n;
+    std::cin >> n;
+    if(m_heap->insert(n)){
+        std::cout << "INSERT SUCCESFUL\nCURRENTHEAP->[";
+        m_heap->levelOrder();
+        std::cout << "]\n";
+    }   
 }
 
 void Driver::remove(){
@@ -47,7 +55,7 @@ void Driver::PQHighest(){
 }
 
 void Driver::levelOrder(){
-
+    m_heap->levelOrder();
 }
 
 void Driver::timeLowest(){
