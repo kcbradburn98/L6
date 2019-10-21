@@ -14,6 +14,9 @@ int main(){
 	myHeap->insert(8);
 	myHeap->insert(15);
 	myHeap->insert(25);
+	myHeap->remove(25);
+	myHeap->remove(3);
+	myHeap->remove(18);
 	myHeap->levelOrder();
 	
 }

@@ -29,7 +29,15 @@ bool Heap::insert(int num){
 }
 
 void Heap::remove(int num){
-
+    int temp = m_arr[m_size];
+    for(int i = 0; i < m_size; i++){
+        if(m_arr[i] == num){
+            m_arr[m_size] = -999;
+            m_size--;
+            m_arr[i] = temp;
+            upheap(i);
+        }
+    }
 }
 
 void Heap::PQHighest(){
