@@ -17,6 +17,7 @@ class Driver{
         void menu();
         void print();
     private:
-        Heap * m_heap;
+        MinHeap * minheap;
+        MaxHeap * maxheap;
 
 };

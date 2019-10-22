@@ -1,14 +1,15 @@
 #include "Heap.h"
 #include <iostream>
 #include <tuple>
+#include <fstream>
+#include "Timer.h"
 
-
-Heap::Heap(){
+MinHeap::MinHeap(){
     for(int i = 0; i < m_arrayLength; i++){
         m_arr[i] = -999;
     }
 }
-bool Heap::insert(int num){
+bool MinHeap::insert(int num){
     if(m_size == 0){
         m_arr[0] = num;
         m_size++;
@@ -25,7 +26,7 @@ bool Heap::insert(int num){
     return false;
 }
 
-bool Heap::remove(){
+bool MinHeap::remove(){
     m_arr[0] = -999;
     m_size--;
     swap(0,m_size);
@@ -33,72 +34,46 @@ bool Heap::remove(){
     return true;
 }
 
-int Heap::PQHighest(){
-    int max = 0;
-    for(int i = 0; i < m_size; i++){
-        if(max < m_arr[i]){
-            max = m_arr[i];
-        }
-    }
-    return max;
-}
-
-int Heap::PQLowest(){
+int MinHeap::PQHighest(){
     return m_arr[0];
 }
 
-void Heap::levelOrder(){
+int MinHeap::PQLowest(){
+    int lowest = -1000000;
     for(int i = 0; i < m_size; i++){
-        if(true){
-            std::cout << m_arr[i] << " ";
+        if(lowest < m_arr[i]){
+            lowest = m_arr[i];
         }
     }
-    std::cout << std::endl;
+    return lowest;
 }
 
-void Heap::heapify(int index){
-    upheap(index);
-    downheap(index);
-    
-    
-    
-    // bool a,b,c,d;
-    // if(){
-    //     return;
-    // }
-    // a = m_arr[index] <= m_arr[p];
-    // b = m_arr[index] >= m_arr[l];
-    // c = m_arr[index] >= m_arr[m];
-    // d = m_arr[index] >= m_arr[r];
-    // if(a && b && c && d){
-    //     return; 
-    // }
-    // else{
-    //     if(m_arr[index] < m_arr[p] ){
-    //         swap(index, p);
-    //         heapify(p);
-    //     }
-    //     else if(m_arr[index] > m_arr[l]){
-    //         swap(index, l);
-    //         heapify(l);
-    //     }
-    //     else if(m_arr[index] > m_arr[m]){
-    //         swap(index, m);
-    //         heapify(m);
-    //     }
-    //     else if(m_arr[index] > m_arr[r]){
-    //         swap(index, r);
-    //         heapify(r);
-    //     }  
-    // }   
+void MinHeap::levelOrder(){
+    int lineEndPoint = 0;
+    for(int i = 0; i < m_size; i++){
+        std::cout << m_arr[i] << " ";
+        if(lineEndPoint == i){
+            std::cout << std::endl;
+            if(!(rchild(lineEndPoint) > m_size)){
+                lineEndPoint = rchild(lineEndPoint);
+            }
+            else if(!(mchild(lineEndPoint) > m_size)){
+                lineEndPoint = mchild(lineEndPoint);
+            }
+            else if(!(lchild(lineEndPoint) > m_size)){
+                lineEndPoint = lchild(lineEndPoint);
+            }
+        }
+    }
 }
-void Heap::swap(int a, int b){
+
+void MinHeap::swap(int a, int b){
     int temp = m_arr[a];
     m_arr[a] = m_arr[b];
     m_arr[b] = temp;
 }
 
-void Heap::upheap(int index){
+void MinHeap::upheap(int index){
     int p = parent(index);
     if(index == p){
         return;
@@ -108,7 +83,7 @@ void Heap::upheap(int index){
         upheap(p);
     }
 }
-void Heap::downheap(int index){
+void MinHeap::downheap(int index){
     int child[3] = {lchild(index),mchild(index),rchild(index)};
     int minIndex = index;
     if(!(child[0] >= m_size)){
@@ -133,4 +108,67 @@ void Heap::downheap(int index){
         swap(index,minIndex);
         downheap(minIndex);
     }
+}
+
+int MinHeap::timeLowest(){
+    Timer myTimer;
+    return PQLowest();
+}
+
+
+
+
+//MaxHeap overriden functions
+MaxHeap::MaxHeap(){
+    for(int i = 0; i < m_size; i++){
+        m_arr[i] = -999;
+    }
+}
+
+void MaxHeap::upheap(int index){
+    int p = parent(index);
+    if(index == p){
+        return;
+    }
+    else if(m_arr[index] > m_arr[p]){
+        swap(index, p);
+        upheap(p);
+    }
+}
+
+void MaxHeap::downheap(int index){
+    int child[3] = {lchild(index),mchild(index),rchild(index)};
+    int minIndex = index;
+    if(!(child[0] >= m_size)){
+        //left child exists
+        if(m_arr[minIndex] < m_arr[child[0]]){
+            minIndex = child[0];
+        }
+    }
+    if(!(child[1] >= m_size)){
+        //middle child exists
+        if(m_arr[minIndex] < m_arr[child[1]]){
+            minIndex = child[1];
+        }
+    }
+    if(!(child[2] >= m_size)){
+        //right child exists
+        if(m_arr[minIndex] < m_arr[child[2]]){
+            minIndex = child[2];
+        }
+    }
+    if(!(minIndex == index)){
+        swap(index,minIndex);
+        downheap(minIndex);
+    }
+}
+
+int MaxHeap::PQLowest(){
+    int lowest = 100000;
+    for(int i = 0; i < m_size; i++){
+        if(lowest > m_arr[i]){
+            lowest = m_arr[i];
+        }
+    }
+    return lowest;
 }

@@ -5,19 +5,15 @@
 
 
 Driver::Driver(){
-    m_heap = new Heap;
+    minheap = new MinHeap;
+    maxheap = new MaxHeap;
     std::ifstream infile;
     infile.open("data.txt");
     int n;
     while(!infile.eof()){
         infile >> n;
-        if(m_heap->insert(n)){
-        std::cout << "INSERT SUCCESFUL\nCURRENTHEAP-> ";
-        m_heap->levelOrder();
-        }
-        else{
-            std::cout << "***ERROR*** INSERT FAILED\n";
-        } 
+        minheap->insert(n);
+        maxheap->insert(n);
     }
     infile.close();
 
@@ -53,48 +49,81 @@ void Driver::insert(){
     std::cout << "Please enter an integer to insert: ";
     int n;
     std::cin >> n;
-    if(m_heap->insert(n)){
-        std::cout << "INSERT SUCCESFUL\nCURRENTHEAP-> ";
-        m_heap->levelOrder();
+    std::cout << "**********MINHEAP**********\n";
+    if(minheap->insert(n)){
+        std::cout << "          INSERT SUCCESFUL          \n";
     }
     else{
-        std::cout << "***ERROR*** INSERT FAILED\n";
-    }   
+        std::cout << "          INSERT FAILED          \n";
+    }
+    std::cout << "**********MAXHEAP**********\n"; 
+    if(maxheap->insert(n)){
+        std::cout << "          INSERT SUCCESFUL          \n";
+    }
+    else{
+        std::cout << "          INSERT FAILED          \n";
+    }  
 }
 
 void Driver::remove(){
-    if(m_heap->remove()){
-        std::cout << "REMOVE SUCCESFUL::CURRENTHEAP-> ";
-        m_heap->levelOrder();
+    std::cout << "**********MINHEAP**********\n";
+    if(minheap->remove()){
+        std::cout << "          REMOVE SUCCESFUL          \n";
     }
     else{
-        std::cout << "***ERROR*** REMOVE FAILED\n";
-    } 
+        std::cout <<  "          REMOVE FAILED          \n";
+    }
+    std::cout << "**********MAXHEAP**********\n"; 
+    if(maxheap->remove()){
+        std::cout << "          REMOVE SUCCESFUL          \n";
+    }
+    else{
+        std::cout <<  "          REMOVE FAILED          \n";
+    }
 }
 
 void Driver::PQLowest(){
-    if(m_heap->getSize() != 0){
-        std::cout << "Lowest -> " << m_heap->PQLowest() << std::endl;
-        return;
+    std::cout << "**********MINHEAP**********\n";
+    if(minheap->getSize() != 0){
+        std::cout << "Lowest -> " << minheap->PQLowest() << std::endl;
     }
-    std::cout << "Heap is empty\n";
+    std::cout << "**********MAXHEAP**********\n";
+    if(maxheap->getSize() != 0){
+        std::cout << "Lowest -> " << maxheap->PQLowest() << std::endl;
+    }
 }
 
 void Driver::PQHighest(){
-    if(m_heap->getSize() != 0){
-        std::cout << "Highest -> " << m_heap->PQHighest() << std::endl;
-        return;
+    std::cout << "**********MINHEAP**********\n";
+    if(minheap->getSize() != 0){
+        std::cout << "Highest -> " << minheap->PQHighest() << std::endl;
     }
-    std::cout << "Heap is empty\n";
+    std::cout << "**********MAXHEAP**********\n";
+    if(minheap->getSize() != 0){
+        std::cout << "Highest -> " << maxheap->PQHighest() << std::endl;
+    }
 }
 
 void Driver::levelOrder(){
-    m_heap->levelOrder();
+    std::cout << "**********MINHEAP**********\n";
+    minheap->levelOrder();
+    std::cout << "***************************\n";
+    std::cout << "**********MAXHEAP**********\n";
+    maxheap->levelOrder();
+    std::cout << "***************************\n";
 }
 
 void Driver::timeLowest(){
-    Timer myTimer;
-    PQLowest();
+    std::cout << "**********MINHEAP**********\n";
+    if(minheap->getSize() != 0){
+        Timer myTimer;
+        std::cout << minheap->PQLowest() << std::endl;
+    }
+    std::cout << "**********MAXHEAP**********\n";
+    if(maxheap->getSize() != 0){
+        Timer myTimer2;
+        std::cout << maxheap->PQLowest() << std::endl;
+    }
 }
 
 void Driver::menu(){
