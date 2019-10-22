@@ -11,8 +11,13 @@ Driver::Driver(){
     int n;
     while(!infile.eof()){
         infile >> n;
-        std::cout << "inserting -> " << n << std::endl;
-        m_heap->insert(n);
+        if(m_heap->insert(n)){
+        std::cout << "INSERT SUCCESFUL\nCURRENTHEAP-> ";
+        m_heap->levelOrder();
+        }
+        else{
+            std::cout << "***ERROR*** INSERT FAILED\n";
+        } 
     }
     infile.close();
 
@@ -51,16 +56,19 @@ void Driver::insert(){
     if(m_heap->insert(n)){
         std::cout << "INSERT SUCCESFUL\nCURRENTHEAP-> ";
         m_heap->levelOrder();
+    }
+    else{
+        std::cout << "***ERROR*** INSERT FAILED\n";
     }   
 }
 
 void Driver::remove(){
-    std::cout << "Please enter an integer to remove: ";
-    int n;
-    std::cin >> n;
-    if(m_heap->remove(n)){
-        std::cout << "REMOVE SUCCESFUL\nCURRENTHEAP-> ";
+    if(m_heap->remove()){
+        std::cout << "REMOVE SUCCESFUL::CURRENTHEAP-> ";
         m_heap->levelOrder();
+    }
+    else{
+        std::cout << "***ERROR*** REMOVE FAILED\n";
     } 
 }
 
