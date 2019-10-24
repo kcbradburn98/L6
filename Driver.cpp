@@ -10,15 +10,21 @@ Driver::Driver(){
     std::ifstream infile;
     infile.open("data.txt");
     int n;
+    Timer * myTimer = new Timer;
     while(!infile.eof()){
         infile >> n;
         minheap->insert(n);
         maxheap->insert(n);
     }
+    delete myTimer;
     infile.close();
 
 }
 
+Driver::~Driver(){
+    delete minheap;
+    delete maxheap;
+}
 
 void Driver::run(){
     bool run = true;

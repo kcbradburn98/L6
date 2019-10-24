@@ -7,6 +7,7 @@
 class Driver{
     public:
         Driver();
+        ~Driver();
         void run();
         void insert();
         void remove();

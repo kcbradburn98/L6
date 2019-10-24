@@ -7,6 +7,7 @@
 class MinHeap{
     public:
         MinHeap();
+        virtual ~MinHeap(){}
         bool insert(int num);
         bool remove();
         virtual int PQLowest();
@@ -38,6 +39,7 @@ class MaxHeap : public MinHeap {
 
     public:
         MaxHeap();
+        ~MaxHeap(){}
         virtual void upheap(int index)override;
         virtual void downheap(int index)override;
         virtual int PQLowest()override;
