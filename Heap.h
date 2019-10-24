@@ -7,7 +7,9 @@
 class MinHeap{
     public:
         MinHeap();
-        virtual ~MinHeap(){}
+        virtual ~MinHeap(){
+            delete m_arr;
+        }
         bool insert(int num);
         bool remove();
         virtual int PQLowest();
